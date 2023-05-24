@@ -1,6 +1,12 @@
+import { useContext } from "react";
 import { HistoryContainer, HistoryList, Status } from "./styles";
+import { CyclesContext } from "../../contexts/CyclesContext";
+import { formatDistanceToNow } from "date-fns";
+import ptBR from "date-fns/locale/pt-BR";
 
 export function History() {
+  const { cycles } = useContext(CyclesContext);
+
   return (
     <HistoryContainer>
       <h1>Meu histórico</h1>
@@ -16,46 +22,30 @@ export function History() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Tarefa</td>
-              <td>15 minutos</td>
-              <td> Há 5 minutos</td>
-              <td>
-                <Status stausColor="yellow">Em andamento</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>Tarefa</td>
-              <td>35 minutos</td>
-              <td> Há quatro meses</td>
-              <td>
-                <Status stausColor="green">Concluído</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>Tarefa</td>
-              <td>20 minutos</td>
-              <td> Há três meses</td>
-              <td>
-                <Status stausColor="green">Concluído</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>Tarefa</td>
-              <td>45 minutos</td>
-              <td> Há um ano</td>
-              <td>
-                <Status stausColor="red">Interrompido</Status>
-              </td>
-            </tr>
-            <tr>
-              <td>Tarefa</td>
-              <td>20 minutos</td>
-              <td> Há dois meses</td>
-              <td>
-                <Status stausColor="green">Concluído</Status>
-              </td>
-            </tr>
+            {cycles.map((cycle) => {
+              return (
+                <tr key={cycle.id}>
+                  <td>{cycle.task}</td>
+                  <td>{cycle.minutesAmount} minutos</td>
+                  {/* usar o new Date pois o JSON só aceita string ou numero e date-fns retorna outra coisa na hora de salvar o localStorage */}
+                  <td>{formatDistanceToNow(new Date(cycle.startDate),{
+                    addSuffix:true,
+                    locale: ptBR,
+                  })}</td>
+                  <td>
+                    {cycle.finishedDate && (
+                      <Status stausColor="green">Concluído</Status>
+                    )}
+                    {cycle.interruptedDate && (
+                      <Status stausColor="red">Interrompido</Status>
+                    )}
+                    {!cycle.finishedDate && !cycle.interruptedDate && (
+                      <Status stausColor="yellow">Em andamento</Status>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </HistoryList>

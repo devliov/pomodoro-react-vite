@@ -58,14 +58,14 @@ export const HistoryList = styled.div`
   }
 `;
 
-const STATUS_COLOR ={
+const statuscolor ={
   yellow:"yellow-500",
   green:"green-500",
   red:"red-500"
 } as const
 
 interface StatusProps {
-  stausColor: keyof typeof STATUS_COLOR
+  stautscolor: keyof typeof statuscolor
 }
 export const Status = styled.span<StatusProps>`
   display: flex;
@@ -77,6 +77,6 @@ export const Status = styled.span<StatusProps>`
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 9999px;
-    background: ${(props) => props.theme[STATUS_COLOR[props.stausColor]]};
+    background: ${(props) => props.theme[statuscolor[props.stautscolor]]};
   }
 `;

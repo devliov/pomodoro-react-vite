@@ -4,7 +4,7 @@ import { defaultThemes } from "../styles/themes/default";
 type ThemeType = typeof defaultThemes;
 
 declare module "styled-components" {
-  export interface DefaultTheme extends ThemeType {}
+  export type DefaultTheme = ThemeType
 }
 
 // yarn add styled-components  na raiz do projeto
