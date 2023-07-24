@@ -1,6 +1,6 @@
 import { HandPalm, Play } from "phosphor-react";
 
-import {  useContext } from "react";
+import { useContext } from "react";
 
 import {
   HomeContainer,
@@ -47,11 +47,10 @@ export function Home() {
 
   const { handleSubmit, watch, reset } = newCycleForm;
 
-  const handleCreateNewCycle =(data: NewCycleFormData)=>{
-    createNewCycle(data)
-    reset()
-  }
-
+  const handleCreateNewCycle = (data: NewCycleFormData) => {
+    createNewCycle(data);
+    reset();
+  };
 
   const task = watch("task");
   const isSubmitDisabled = !task;

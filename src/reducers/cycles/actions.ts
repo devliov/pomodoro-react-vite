@@ -7,7 +7,6 @@ import { Cycle } from "./reducer";
 }
  
 
-
 export function addNewCycleAction(newCycle:Cycle) {
     return {
       type: ActionTypes.ADD_NEW_CYCLE,
